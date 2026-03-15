@@ -1,6 +1,7 @@
 <script lang="ts">
   import type {Note} from '$lib/dataType/NoteTy';
   let {note}: {note:Note} = $props();
+  import {noteStore} from '$lib/store/note.svelte'
 
   function formatDate(dateString:string) {
     const date = new Date(dateString);
@@ -12,8 +13,12 @@
   }
 </script>
 
-<div 
-  class="p-5 rounded-2xl flex flex-col h-56 shadow-sm justify-between border border-black/5" 
+<div
+onclick={() => noteStore.setSelectedNoteId(note.id)}
+onkeydown={(e) => {if(e.key ==='Enter'|| e.key ===' ') noteStore.setSelectedNoteId(note.id)}}
+  role="button" 
+  tabindex="0" 
+  class="p-5 rounded-2xl flex flex-col h-56 shadow-sm justify-between border transition-all cursor-pointer outline-none {noteStore.selectedNoteId === note.id ?'border-black' : 'border-black/5 hover:shadow-md'}" 
   style="background-color:{note.color || '#ffffff'}"
 > 
   <div>

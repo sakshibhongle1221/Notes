@@ -9,7 +9,8 @@ function noteState(){
     sortBy:"createdAt",
     page:1,
     limit:20,
-    totalPages:1
+    totalPages:1,
+    selectedNoteId: null as string | null
     }
   );
 
@@ -61,6 +62,10 @@ function noteState(){
   states.totalPages = value;
   }
 
+  function setSelectedNoteId(id: string | null){
+  states.selectedNoteId= id;
+  }
+
   return {
     get notes(){return states.notes},
     get loading(){return states.loading},
@@ -69,6 +74,7 @@ function noteState(){
     get page(){return states.page},
     get limit(){ return states.limit},
     get totalPages(){ return states.totalPages},
+    get selectedNoteId(){return states.selectedNoteId;},
     setNotes,
     add,
     remove,
@@ -78,7 +84,8 @@ function noteState(){
     setPage,
     setSortBy,
     setTotalPages,
-    loadNotes
+    loadNotes,
+    setSelectedNoteId
   };
 }
 
