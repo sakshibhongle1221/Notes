@@ -1,4 +1,5 @@
 import type { Note } from "$lib/dataType/NoteTy";
+import {getNotes} from "$lib/api/requests";
 
 function noteState(){
   let states = $state(
@@ -11,6 +12,18 @@ function noteState(){
     totalPages:1
     }
   );
+
+  async function loadNotes() {
+  setLoading(true);
+  try{
+    const data = await getNotes();
+    setNotes(data);
+  }catch(err){
+    console.error(err);
+  }finally {
+    setLoading(false);
+  }
+}
 
   function setNotes(newNotes:Note[]){
     states.notes=newNotes
@@ -64,7 +77,8 @@ function noteState(){
     setSearch,
     setPage,
     setSortBy,
-    setTotalPages
+    setTotalPages,
+    loadNotes
   };
 }
 
