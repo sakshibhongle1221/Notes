@@ -1,22 +1,24 @@
 <script lang="ts">
   let{
     color= '#ffffff',
+    initialTitle = '',
+    initialContent = '',
     onSubmit,
     onCancel
   }:{
     color?: string;
+    initialTitle?: string;
+    initialContent?: string;
     onSubmit:(title:string, content:string)=> void;
     onCancel:() => void;
   } = $props();
 
-  let title = $state('');
-  let content = $state('');
+  let title = $state(initialTitle);
+  let content = $state(initialContent);
 
   function handleSave() {
     if (!title.trim() && !content.trim()){return;}
     onSubmit(title, content);
-    title= '';
-    content= '';
   }
 </script>
 
