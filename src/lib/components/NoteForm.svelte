@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { onMount } from 'svelte';
   let{
     color= '#ffffff',
     initialTitle = '',
@@ -13,8 +14,13 @@
     onCancel:() => void;
   } = $props();
 
-  let title = $state(initialTitle);
-  let content = $state(initialContent);
+  let title = $state('');
+  let content = $state('');
+
+  onMount(()=>{
+    title= initialTitle
+    content= initialContent
+  });
 
   function handleSave() {
     if (!title.trim() && !content.trim()){return;}
