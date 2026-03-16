@@ -86,8 +86,11 @@
   <button 
     onclick={toggleCreateMode}
     aria-label="Create note"
-    class="w-9 h-9 flex items-center justify-center bg-black dark:bg-white text-white dark:text-black rounded-full text-2xl font-semibold shadow-sm transition-colors"
-  > +
+    class="w-9 h-9 flex items-center justify-center bg-black dark:bg-white text-white dark:text-black rounded-full shadow-sm transition-colors"
+  >
+  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+  </svg>
   </button>
   {#if !isOnline}
     <div class="px-3 py-1 ml-2 bg-red-100 dark:bg-red-900 text-red-700 dark:text-red-100 text-xs font-bold rounded-full flex items-center gap-2">
