@@ -107,7 +107,7 @@
         type="text" 
         placeholder="Search notes..."
         oninput={handleSearch}
-        class="bg-transparent outline-none w-fulltext-black dark:text-white placeholder-gray-400"
+        class="bg-transparent outline-none w-full text-black dark:text-white placeholder-gray-400"
       />
     </div>
   {:else}
