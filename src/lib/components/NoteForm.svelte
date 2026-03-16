@@ -26,7 +26,6 @@
 
   async function handleSave() {
     if (!title.trim() && !content.trim()){return;}
-    onSubmit(title, content);
     isSubmit=true
     try{
       await onSubmit(title, content)

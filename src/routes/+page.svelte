@@ -11,7 +11,7 @@ onMount(() => {
 {#if noteStore.loading}
   <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3"> 
     {#each Array(20) as _}
-      <div class="p-5 rounded-2xl h-56 border-2 border-gray-100 dark:border-gray-800 bg-gray-50 dark:bg-gray-800/30 animate-pulse flex flex-col justify-between transition-colors">
+      <div class="p-5 rounded-2xl h-40 border-2 border-gray-100 dark:border-gray-800 bg-gray-50 dark:bg-gray-800/30 animate-pulse flex flex-col justify-between transition-colors">
         <div>
           <div class="h-6 bg-gray-200 dark:bg-gray-700 rounded-md w-3/4 mb-4"></div>
           <div class="space-y-2">
