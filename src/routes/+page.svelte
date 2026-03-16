@@ -1,7 +1,7 @@
 <script>
 import { onMount } from "svelte";
 import { noteStore } from "$lib/store/note.svelte";
-import NoteCard from "$lib/components/NoteCard.svelte";
+import NotesCard from "$lib/components/NotesCard.svelte";
 
 onMount(() => {
   noteStore.loadNotes();
@@ -43,7 +43,7 @@ onMount(() => {
 {:else}
   <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6 mt-4"> 
     {#each noteStore.filteredNotes as note (note.id)}
-      <NoteCard note={note} />
+      <NotesCard note={note} />
     {/each}
   </div>
 {/if}
