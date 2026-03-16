@@ -21,15 +21,29 @@ function noteState(){
     }
   );
 
+  function saveLocal(){
+    if(typeof window !== 'undefined'){
+      localStorage.setItem('offline_notes_cache',JSON.stringify(states.notes))
+    }
+  }
+
   async function loadNotes() {
-  if(states.page === 1)setLoading(true);
+  if(states.page === 1){
+    setLoading(true);
+  if(typeof window!=='undefined'){
+    const cached = localStorage.getItem('offline_notes_cache');
+    if (cached){
+      states.notes = JSON.parse(cached);
+    }
+  }} 
   try{
     const data = await getNotes(states.page, states.limit);
-    if (states.page === 1) {setNotes(data)}
-    else { states.notes = [...states.notes, ...data]}
+    if (states.page === 1){setNotes(data)}
+    else {states.notes = [...states.notes, ...data]}
     states.isMore = data.length === states.limit;
+    saveLocal();
   }catch(err){
-    console.error(err);
+    console.error("You are offline",err);
   }finally {
     setLoading(false);
   }
@@ -47,14 +61,17 @@ function loadMore(){
 
   function add(note:Note){
     states.notes = [...states.notes,note];
+    saveLocal();
   }
 
   function remove(id:string){
     states.notes = states.notes.filter(i => i.id !== id);
+    saveLocal();
   }
 
   function update(updatedNote:Note){
     states.notes = states.notes.map(i =>i.id === updatedNote.id ? updatedNote : i)
+    saveLocal();
   }
 
   function setLoading(value:boolean){
@@ -94,6 +111,7 @@ function loadMore(){
 
 function deleteCount(undoNote: Note){
 states.notes=states.notes.filter(i=>i.id!==undoNote.id)
+saveLocal();
 if(states.toast.timeoutId){
   clearTimeout(states.toast.timeoutId)
 }

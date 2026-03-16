@@ -4,12 +4,17 @@
   import {noteStore} from '$lib/store/note.svelte';
   import DeleteNote from '$lib/components/DeleteNote.svelte';
   import SideNav from '$lib/components/SideNav.svelte'
+  import {onMount} from 'svelte';
 
   let isSideNavOpen = $state(false);
   let isCreateMode = $state(false);
   let showDelete = $state(false);
   let selectedNote = $derived(noteStore.notes.find(i=> i.id === noteStore.selectedNoteId));
   let searchTimeout: ReturnType<typeof setTimeout>;
+  let isOnline = $state(true);
+  onMount(() => {
+    isOnline = navigator.onLine;
+  });
 
   const colors = [
   '#fef9c3','#d1fae5','#bfdbfe','#fecdd3','#f9a8d4','#fed7aa','#e9d5ff'
@@ -55,7 +60,7 @@
     }
   }
 </script>
-<svelte:window onkeydown={handleKeydown} />
+<svelte:window ononline={() => isOnline = true} onoffline={() => isOnline = false} />
 <header class="flex items-center gap-4 px-6 py-4 bg-white dark:bg-black border-b border-gray-200 dark:border-black transition-colors">
   
   <button aria-label="Open sideNavBar"
@@ -84,6 +89,12 @@
     class="w-9 h-9 flex items-center justify-center bg-black dark:bg-white text-white dark:text-black rounded-full text-2xl font-semibold shadow-sm transition-colors"
   > +
   </button>
+  {#if !isOnline}
+    <div class="px-3 py-1 ml-2 bg-red-100 dark:bg-red-900 text-red-700 dark:text-red-100 text-xs font-bold rounded-full flex items-center gap-2">
+      <div class="w-2 h-2 rounded-full bg-red-500 animate-pulse"></div>
+      OFFLINE
+    </div>
+  {/if}
 
   {#if isCreateMode}
     <div class="flex items-center gap-2 ml-2">
