@@ -11,21 +11,30 @@ function noteState(){
     limit:20,
     totalPages:1,
     selectedNoteId: null as string | null,
-    isDarkMode:false
+    isDarkMode:false,
+    isMore: true
     }
   );
 
   async function loadNotes() {
-  setLoading(true);
+  if(states.page === 1)setLoading(true);
   try{
-    const data = await getNotes();
-    setNotes(data);
+    const data = await getNotes(states.page, states.limit);
+    if (states.page === 1) {setNotes(data)}
+    else { states.notes = [...states.notes, ...data]}
+    states.isMore = data.length === states.limit;
   }catch(err){
     console.error(err);
   }finally {
     setLoading(false);
   }
 }
+
+function loadMore(){
+  if(states.isMore){
+    states.page += 1
+    loadNotes()}
+  }
 
   function setNotes(newNotes:Note[]){
     states.notes=newNotes
@@ -88,6 +97,7 @@ function noteState(){
     get totalPages(){ return states.totalPages},
     get selectedNoteId(){return states.selectedNoteId},
     get isDarkMode(){return states.isDarkMode},
+    get hasMore(){return states.isMore},
     get filteredNotes() {
       let result = states.notes;
       if(states.search){
@@ -116,7 +126,8 @@ function noteState(){
     setTotalPages,
     loadNotes,
     setSelectedNoteId,
-    toggleDarkMode
+    toggleDarkMode,
+    loadMore
   };
 }
 

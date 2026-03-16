@@ -2,8 +2,8 @@ import type { Note } from '$lib/dataType/NoteTy';
 
 const Base_URL = 'https://69ad61a7b50a169ec87f45fd.mockapi.io/note/v1';
 
-export async function getNotes(): Promise<Note[]> {
-  const res = await fetch(`${Base_URL}/notes`);
+export async function getNotes(page:number=1, limit:number=20): Promise<Note[]> {
+  const res = await fetch(`${Base_URL}/notes?page=${page}&limit=${limit}`);
 
   if (!res.ok) {throw new Error('Failed to fetch notes');}
 

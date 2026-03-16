@@ -46,4 +46,13 @@ onMount(() => {
       <NotesCard note={note} />
     {/each}
   </div>
+  {#if noteStore.hasMore && noteStore.filteredNotes.length >= noteStore.limit}
+    <div class="flex justify-center mt-12 mb-8">
+      <button 
+        onclick={()=>noteStore.loadMore()}
+        class="px-6 py-2 bg-gray-100 dark:bg-zinc-800 text-black dark:text-white rounded-full font-medium hover:bg-gray-200 dark:hover:bg-zinc-500 transition-colors shadow-sm"
+      >Load More Notes
+      </button>
+    </div>
+  {/if}
 {/if}
