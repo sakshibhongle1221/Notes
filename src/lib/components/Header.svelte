@@ -1,6 +1,6 @@
 <script lang="ts">
   import NoteForm from './NoteForm.svelte';
-  import {createNote,deleteNote} from '$lib/api/requests';
+  import {createNote} from '$lib/api/requests';
   import {noteStore} from '$lib/store/note.svelte';
   import DeleteNote from '$lib/components/DeleteNote.svelte';
   import SideNav from '$lib/components/SideNav.svelte'
@@ -33,15 +33,9 @@
   }
   async function handleDelete() {
     if (!selectedNote) return;
-    try {
-      await deleteNote(selectedNote.id);
-      noteStore.remove(selectedNote.id);
-      noteStore.setSelectedNoteId(null);
-      showDelete = false;
-    } catch (error) {
-      console.error("Failed to delete", error);
-      alert("Could not delete note");
-    }
+    noteStore.deleteCount(selectedNote)
+    noteStore.setSelectedNoteId(null);
+    showDelete = false;
   }
 
   function handleSearch(event:Event){

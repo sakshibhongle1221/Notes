@@ -1,5 +1,5 @@
 import type { Note } from "$lib/dataType/NoteTy";
-import {getNotes} from "$lib/api/requests";
+import {getNotes,deleteNote} from "$lib/api/requests";
 
 function noteState(){
   let states = $state(
@@ -12,7 +12,12 @@ function noteState(){
     totalPages:1,
     selectedNoteId: null as string | null,
     isDarkMode:false,
-    isMore: true
+    isMore: true,
+    toast:{ 
+      showToast:false, 
+      note:null as Note | null, 
+      timeoutId: null as ReturnType<typeof setTimeout> | null 
+    }
     }
   );
 
@@ -87,6 +92,33 @@ function loadMore(){
     }
   }
 
+function deleteCount(undoNote: Note){
+states.notes=states.notes.filter(i=>i.id!==undoNote.id)
+if(states.toast.timeoutId){
+  clearTimeout(states.toast.timeoutId)
+}
+const timeoutId = setTimeout(async()=>{
+  try{
+    await deleteNote(undoNote.id);
+  }catch(err){
+    console.error("Failed to delete from DB", err)}
+    finally{
+        states.toast.showToast=false;
+        states.toast.note= null;
+    }
+    },10000);
+    states.toast = {showToast:true, note:undoNote, timeoutId};
+  }
+
+  function undoDelete() {
+    if (states.toast.note && states.toast.timeoutId){
+      clearTimeout(states.toast.timeoutId);
+      states.notes=[...states.notes, states.toast.note];
+      states.toast.showToast = false;
+      states.toast.note = null;
+    }
+  }
+
   return {
     get notes(){return states.notes},
     get loading(){return states.loading},
@@ -98,6 +130,7 @@ function loadMore(){
     get selectedNoteId(){return states.selectedNoteId},
     get isDarkMode(){return states.isDarkMode},
     get hasMore(){return states.isMore},
+    get toast(){return states.toast},
     get filteredNotes() {
       let result = states.notes;
       if(states.search){
@@ -127,7 +160,9 @@ function loadMore(){
     loadNotes,
     setSelectedNoteId,
     toggleDarkMode,
-    loadMore
+    loadMore,
+    deleteCount,
+    undoDelete
   };
 }
 
