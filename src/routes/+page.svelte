@@ -16,7 +16,7 @@ onMount(() => {
 {:else}
 
   <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6 mt-4"> 
-    {#each noteStore.notes as note (note.id)}
+    {#each noteStore.filteredNotes as note (note.id)}
       <NoteCard note={note} />
     {/each}
   </div>

@@ -7,6 +7,7 @@
   let isCreateMode = $state(false);
   let showDelete = $state(false);
   let selectedNote = $derived(noteStore.notes.find(i=> i.id === noteStore.selectedNoteId));
+  let searchTimeout: ReturnType<typeof setTimeout>;
 
   const colors = [
   '#fef9c3','#d1fae5','#bfdbfe','#fecdd3','#f9a8d4','#fed7aa','#e9d5ff'
@@ -39,6 +40,14 @@
       console.error("Failed to delete", error);
       alert("Could not delete note");
     }
+  }
+
+  function handleSearch(event:Event){
+    const input = (event.target as HTMLInputElement).value;
+    clearTimeout(searchTimeout);    
+    searchTimeout = setTimeout(()=>{
+      noteStore.setSearch(input);
+    }, 300);
   }
 </script>
 
@@ -92,7 +101,8 @@
       </svg>
       <input 
         type="text" 
-        placeholder="Search notes..." 
+        placeholder="Search notes..."
+        oninput={handleSearch}
         class="bg-transparent outline-none w-full text-gray placeholder-gray"
       />
     </div>

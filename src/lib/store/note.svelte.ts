@@ -75,6 +75,14 @@ function noteState(){
     get limit(){ return states.limit},
     get totalPages(){ return states.totalPages},
     get selectedNoteId(){return states.selectedNoteId;},
+    get filteredNotes(){
+      if (!states.search) return states.notes;
+      const lower = states.search.toLowerCase();
+      return states.notes.filter(n => 
+        n.title.toLowerCase().includes(lower) || 
+        n.content.toLowerCase().includes(lower)
+      );
+    },
     setNotes,
     add,
     remove,
