@@ -53,11 +53,11 @@
   }
 </script>
 
-<header class="flex items-center gap-4 px-6 py-4 bg-white border-b border-gray-200">
+<header class="flex items-center gap-4 px-6 py-4 bg-white dark:bg-black border-b border-gray-200 dark:border-black transition-colors">
   
   <button aria-label="Open sideNavBar"
   onclick={()=>isSideNavOpen = true} class="p-2 hover:bg-gray-300 rounded-full transition-colors">
-    <svg class="w-6 h-6 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <svg class="w-6 h-6 text-black dark:text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
     </svg>
   </button>
@@ -70,7 +70,7 @@
     aria-label="Delete note"
     class="p-2 hover:bg-gray-300 rounded-full transition-colors {selectedNote ? 'text-black hover:text-red-500' :'text-gray-400 cursor-not-allowed'}"
   >
-  <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+  <svg class="w-6 h-6 dark:text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
     </svg>
   </button>
@@ -78,7 +78,7 @@
   <button 
     onclick={toggleCreateMode}
     aria-label="Create note"
-    class="w-9 h-9 flex items-center justify-center bg-black text-white rounded-full text-2xl font-semibold shadow-sm transition-colors"
+    class="w-9 h-9 flex items-center justify-center bg-black dark:bg-white text-white dark:text-black rounded-full text-2xl font-semibold shadow-sm transition-colors"
   > +
   </button>
 
@@ -95,23 +95,21 @@
     </div>
   {/if}
 
-  <div class="flex-1"></div>
-
   {#if !isCreateMode}
-    <div class="flex items-center bg-gray-200 px-4 py-2 rounded-full w-full max-w-md">
-      <svg class="w-5 h-5 text-black mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <div class="mx-auto flex items-center bg-gray-100 dark:bg-[#2F2F2F] px-4 py-2 rounded-full w-90">
+      <svg class="w-5 h-5 text-black dark:text-white mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
       </svg>
       <input 
         type="text" 
         placeholder="Search notes..."
         oninput={handleSearch}
-        class="bg-transparent outline-none w-full text-gray placeholder-gray"
+        class="bg-transparent outline-none w-fulltext-black dark:text-white placeholder-gray-400"
       />
     </div>
   {:else}
-    <button aria-label="Search" class="p-2 hover:bg-gray-300 rounded-full transition-colors">
-      <svg class="w-6 h-6 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <button aria-label="Search" class="ml-auto p-2 hover:bg-gray-300 rounded-full transition-colors">
+      <svg class="w-6 h-6 text-black dark:text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
       </svg>
     </button>
@@ -119,7 +117,7 @@
 
 </header>
 {#if isCreateMode}
-  <div class="bg-gray border-b border-none p-6 flex justify-center">
+  <div class="bg-gray-400 border-b border-none p-6 flex justify-center">
     <div class="w-full h-full">
       <NoteForm 
         color={selectedColor} 

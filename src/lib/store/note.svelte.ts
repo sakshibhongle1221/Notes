@@ -10,7 +10,8 @@ function noteState(){
     page:1,
     limit:20,
     totalPages:1,
-    selectedNoteId: null as string | null
+    selectedNoteId: null as string | null,
+    isDarkMode:false
     }
   );
 
@@ -66,6 +67,17 @@ function noteState(){
   states.selectedNoteId= id;
   }
 
+  function toggleDarkMode(){
+    states.isDarkMode = !states.isDarkMode;
+    if (typeof document !== 'undefined') {
+      if (states.isDarkMode) {
+        document.documentElement.classList.add('dark');
+      }else{
+        document.documentElement.classList.remove('dark');
+      }
+    }
+  }
+
   return {
     get notes(){return states.notes},
     get loading(){return states.loading},
@@ -74,7 +86,8 @@ function noteState(){
     get page(){return states.page},
     get limit(){ return states.limit},
     get totalPages(){ return states.totalPages},
-    get selectedNoteId(){return states.selectedNoteId;},
+    get selectedNoteId(){return states.selectedNoteId},
+    get isDarkMode(){return states.isDarkMode},
     get filteredNotes() {
       let result = states.notes;
       if(states.search){
@@ -102,7 +115,8 @@ function noteState(){
     setSortBy,
     setTotalPages,
     loadNotes,
-    setSelectedNoteId
+    setSelectedNoteId,
+    toggleDarkMode
   };
 }
 
