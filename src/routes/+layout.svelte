@@ -8,7 +8,7 @@
 <div class="h-screen overflow-hidden bg-white text-black dark:bg-black dark:text-white flex flex-col transition-colors duration-300">  
   <Header/>
   
-  <main class="grow p-5 overflow-y-auto relative"> 
+  <main class="grow py-2 px-5 overflow-y-auto relative"> 
     {@render children()}
   </main>
 	<Toast/>

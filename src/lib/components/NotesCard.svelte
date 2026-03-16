@@ -21,14 +21,14 @@ onclick={() => noteStore.setSelectedNoteId(note.id)}
 onkeydown={(e) => {if(e.key ==='Enter'|| e.key ===' ') noteStore.setSelectedNoteId(note.id)}}
   role="button" 
   tabindex="0" 
-  class="p-5 rounded-2xl flex flex-col h-56 shadow-sm justify-between border transition-all cursor-pointer outline-none {noteStore.selectedNoteId === note.id ?'border-black':'border-black/5 hover:shadow-lg'}" 
+  class="p-5 rounded-2xl flex flex-col h-40 shadow-sm justify-between border transition-all cursor-pointer outline-none {noteStore.selectedNoteId === note.id ?'border-black':'border-black/5 hover:shadow-lg'}" 
   style="background-color:{note.color || '#ffffff'}"
 > 
   <div>
     <h3 class="font-bold text-black text-lg mb-2">
       {note.title || 'Untitled'}
     </h3>
-    <p class="text-black text-sm line-clamp-4">
+    <p class="text-black text-sm line-clamp-2">
       {note.content}
     </p>
   </div>
