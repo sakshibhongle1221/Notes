@@ -9,7 +9,7 @@ onMount(() => {
 </script>
 
 {#if noteStore.loading}
-  <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6 mt-4"> 
+  <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-5"> 
     {#each Array(20) as _}
       <div class="p-5 rounded-2xl h-56 border-2 border-gray-100 dark:border-gray-800 bg-gray-50 dark:bg-gray-800/30 animate-pulse flex flex-col justify-between transition-colors">
         <div>
@@ -41,7 +41,7 @@ onMount(() => {
   </div>
 
 {:else}
-  <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6 mt-4"> 
+  <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-5"> 
     {#each noteStore.filteredNotes as note (note.id)}
       <NotesCard note={note} />
     {/each}
