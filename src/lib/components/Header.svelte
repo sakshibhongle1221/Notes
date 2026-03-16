@@ -51,8 +51,17 @@
       noteStore.setSearch(input);
     },400);
   }
-</script>
 
+  function handleKeydown(e: KeyboardEvent) {
+    if ((e.ctrlKey|| e.metaKey) && e.key.toLowerCase()=== 'n'){
+    e.preventDefault();
+      if (!isCreateMode) {
+        toggleCreateMode();
+      }
+    }
+  }
+</script>
+<svelte:window onkeydown={handleKeydown} />
 <header class="flex items-center gap-4 px-6 py-4 bg-white dark:bg-black border-b border-gray-200 dark:border-black transition-colors">
   
   <button aria-label="Open sideNavBar"
@@ -117,7 +126,7 @@
 
 </header>
 {#if isCreateMode}
-  <div class="bg-gray-400 border-b border-none p-6 flex justify-center">
+  <div class="border-b border-none p-6 flex justify-center">
     <div class="w-full h-full">
       <NoteForm 
         color={selectedColor} 

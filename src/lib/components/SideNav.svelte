@@ -25,7 +25,7 @@
     aria-label="close sideNav"
   ></div>
 
-  <aside class="fixed top-0 left-0 w-72 h-full bg-white dark:bg-black shadow-2xl z-50 p-6 flex flex-col transition-color">
+  <aside class="fixed top-0 left-0 w-72 h-full bg-white dark:bg-black shadow-2xl z-50 p-6 flex flex-col dark:border-r dark:border-zinc-700 transition-color">
     
     <div class="flex items-center justify-between mb-8">
       <h2 class="text-xl font-bold text-black dark:text-white">Settings</h2>
