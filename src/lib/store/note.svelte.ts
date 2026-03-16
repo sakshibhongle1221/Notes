@@ -75,13 +75,22 @@ function noteState(){
     get limit(){ return states.limit},
     get totalPages(){ return states.totalPages},
     get selectedNoteId(){return states.selectedNoteId;},
-    get filteredNotes(){
-      if (!states.search) return states.notes;
-      const lower = states.search.toLowerCase();
-      return states.notes.filter(n => 
-        n.title.toLowerCase().includes(lower) || 
-        n.content.toLowerCase().includes(lower)
-      );
+    get filteredNotes() {
+      let result = states.notes;
+      if(states.search){
+        const lower =states.search.toLowerCase();
+        result= result.filter(n =>n.title.toLowerCase().includes(lower) || n.content.toLowerCase().includes(lower)
+        );
+      }
+      return [...result].sort((a, b) =>{
+        if (states.sortBy === 'title') {
+          return a.title.localeCompare(b.title);
+        }
+        if (states.sortBy === 'id') {
+          return String(a.id).localeCompare(String(b.id)); 
+        }
+        return new Date(b.createdAt).getTime() -new Date(a.createdAt).getTime();
+      });
     },
     setNotes,
     add,

@@ -2,8 +2,10 @@
   import NoteForm from './NoteForm.svelte';
   import {createNote,deleteNote} from '$lib/api/requests';
   import {noteStore} from '$lib/store/note.svelte';
-  import DeleteNote from '$lib/components/DeleteNote.svelte'
+  import DeleteNote from '$lib/components/DeleteNote.svelte';
+  import SideNav from '$lib/components/SideNav.svelte'
 
+  let isSideNavOpen = $state(false);
   let isCreateMode = $state(false);
   let showDelete = $state(false);
   let selectedNote = $derived(noteStore.notes.find(i=> i.id === noteStore.selectedNoteId));
@@ -47,13 +49,14 @@
     clearTimeout(searchTimeout);    
     searchTimeout = setTimeout(()=>{
       noteStore.setSearch(input);
-    }, 300);
+    },400);
   }
 </script>
 
 <header class="flex items-center gap-4 px-6 py-4 bg-white border-b border-gray-200">
   
-  <button aria-label="Open sideNavBar" class="p-2 hover:bg-gray-300 rounded-full transition-colors">
+  <button aria-label="Open sideNavBar"
+  onclick={()=>isSideNavOpen = true} class="p-2 hover:bg-gray-300 rounded-full transition-colors">
     <svg class="w-6 h-6 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
     </svg>
@@ -133,3 +136,7 @@
     onDelete={handleDelete}
   />
 {/if}
+<SideNav 
+  isOpen={isSideNavOpen} 
+  onClose={()=> isSideNavOpen = false} 
+/>
