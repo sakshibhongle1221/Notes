@@ -29,7 +29,7 @@
 </script>
 
 <div 
-  class="p-5 rounded-2xl shadow-md border border-black/10 flex flex-col h-56" 
+  class="mx-auto p-5 rounded-2xl shadow-md border border-black/10 flex flex-col h-80 max-w-200" 
   style="background-color: {color};"
 >
   <input
