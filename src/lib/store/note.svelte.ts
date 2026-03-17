@@ -1,5 +1,5 @@
 import type { Note } from "$lib/dataType/NoteTy";
-import {getNotes,deleteNote} from "$lib/api/requests";
+import {getNotes,deleteNote,editNote} from "$lib/api/requests";
 
 function noteState(){
   let states = $state(
@@ -137,6 +137,16 @@ const timeoutId = setTimeout(async()=>{
     }
   }
 
+  async function togglePin(note:Note){
+    const updatedNote ={ ...note,pinned:!note.pinned}
+    update(updatedNote)
+    try{
+      await editNote(updatedNote.id, updatedNote.title, updatedNote.content, updatedNote.color, updatedNote.pinned);
+    }catch(err){
+      console.error("Failed to pin note", err);
+      update(note);
+    }
+  }
   return {
     get notes(){return states.notes},
     get loading(){return states.loading},
@@ -156,7 +166,7 @@ const timeoutId = setTimeout(async()=>{
         result= result.filter(n =>n.title.toLowerCase().includes(lower) || n.content.toLowerCase().includes(lower)
         );
       }
-      return [...result].sort((a, b) =>{
+      return [...result].sort((a, b)=>{ if(a.pinned!== b.pinned){return a.pinned ? -1 : 1}
         if (states.sortBy === 'title') {
           return a.title.localeCompare(b.title);
         }
@@ -180,7 +190,8 @@ const timeoutId = setTimeout(async()=>{
     toggleDarkMode,
     loadMore,
     deleteCount,
-    undoDelete
+    undoDelete,
+    togglePin
   };
 }
 
